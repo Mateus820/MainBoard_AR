@@ -10,25 +10,32 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject img;
 
     public void ChangeScene(string sceneName){
-        img.SetActive(true);
+        print("ChangeScene");
         StartCoroutine(TimeToFadeOut(sceneName));
     }
 
+    public void ChangeSceneNoDelay(string sceneName){
+        SceneManager.LoadScene(sceneName);
+    }
+
     void Start(){
+        print("Start");
         StartCoroutine(TimeToFadeIn());
-        animator.SetTrigger("FadeIn");
-        img.SetActive(false);
     }
 
     IEnumerator TimeToFadeIn(){
         animator.SetTrigger("FadeIn");
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
         img.SetActive(false);
+        print("TimeToFadeIn");
     }
 
     IEnumerator TimeToFadeOut(string scene){
+        print("TimeToFadeOut");
+        img.SetActive(true);
         animator.SetTrigger("FadeOut");
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(scene);
     }
+
 }
